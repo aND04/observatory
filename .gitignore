@@ -47,3 +47,5 @@ Thumbs.db
 
 debug.log
 /documentation
+
+*.iml
