@@ -19,13 +19,14 @@ export class DataService {
   private listTags: ListTags;
 
   constructor(private readonly http: HttpClient) {
-    const host = location.hostname;
+    // const host = location.hostname;
 
-    if (host === 'localhost') {
+    /*if (host === 'localhost') {
       this.server = 'http://localhost:3000';
     } else {
       this.server = '/api';
-    }
+    }*/
+    this.server = 'http://ec2-54-74-174-74.eu-west-1.compute.amazonaws.com:3000';
   }
 
   getObservatoryData(): Observable<boolean> {
@@ -39,7 +40,7 @@ export class DataService {
           const newTag = this.createTag(tag, clone(response));
           tags.push(newTag);
         }
-        
+
         this.listTags = new ListTags(tags);
         return true;
       }),
@@ -63,7 +64,7 @@ export class DataService {
         tmpTags.push({ id: tag.TagId, name: tag.Tag_Name, creation_date: tag.Tag_Creation_Date });
       }
     });
-    
+
     return tmpTags;
   }
 
@@ -83,7 +84,7 @@ export class DataService {
         });
       }
     }
-    
+
     for (const website of websites || []) {
       const newWebsite = this.createWebsite(website, tag, response);
       newTag.addWebsite(newWebsite);
